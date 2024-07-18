@@ -20,16 +20,16 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="希望补充背景知识，所以在新概念&#x2F;细节上花费精力较多。  摘要 目标：降低深度学习图像压缩的解码复杂度 现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。  [!NOTE] rate-distortion (RD) （比特&#x2F;数据&#x2F;信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图">
+  <meta name="description" content="希望补充背景知识，所以在新概念&#x2F;细节上花费精力较多。  摘要目标：降低深度学习图像压缩的解码复杂度现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。  [!NOTE] rate-distortion (RD)（比特&#x2F;数据&#x2F;信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图与生成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文笔记《C3: High-performance and low-complexity neural compression from a single image or video》">
 <meta property="og:url" content="https://cicecoo.github.io/2024/07/14/C3/index.html">
 <meta property="og:site_name" content="冰箱">
-<meta property="og:description" content="希望补充背景知识，所以在新概念&#x2F;细节上花费精力较多。  摘要 目标：降低深度学习图像压缩的解码复杂度 现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。  [!NOTE] rate-distortion (RD) （比特&#x2F;数据&#x2F;信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图">
+<meta property="og:description" content="希望补充背景知识，所以在新概念&#x2F;细节上花费精力较多。  摘要目标：降低深度学习图像压缩的解码复杂度现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。  [!NOTE] rate-distortion (RD)（比特&#x2F;数据&#x2F;信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图与生成">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714203559.png">
-<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714220612.png">
-<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714221500.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714203559.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714220612.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714221500.png">
 <meta property="article:published_time" content="2024-07-13T16:47:36.925Z">
 <meta property="article:modified_time" content="2024-07-18T04:07:49.784Z">
 <meta property="article:author" content="cicecoo">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="视频压缩">
 <meta property="article:tag" content="论文笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714203559.png">
+<meta name="twitter:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714203559.png">
   
     <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
   
@@ -210,109 +210,62 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>希望补充背景知识，所以在新概念/细节上花费精力较多。</p>
-<h2 id="摘要"><a class="markdownIt-Anchor" href="#摘要"></a> 摘要</h2>
-<p>目标：降低深度学习图像压缩的解码复杂度<br>
-现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。</p>
+          <p>希望补充背景知识，所以在新概念/细节上花费精力较多。 </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>目标：降低深度学习图像压缩的解码复杂度<br>现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。</p>
 <blockquote>
-<p>[!NOTE] rate-distortion (RD)<br>
-（比特/数据/信息）率失真<br>
-RD 如何评估？ PSRN、SSIM等计算原图与生成图像的差异/相似程度</p>
+<p>[!NOTE] rate-distortion (RD)<br>（比特/数据/信息）率失真<br> RD 如何评估？ PSRN、SSIM等计算原图与生成图像的差异/相似程度</p>
 </blockquote>
 <p>C3基于Cool-chic编码，在单图像上实现后迁移到视频。</p>
 <blockquote>
-<p>[!NOTE] Cool-chic<br>
-<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/ICCV2023/papers/Ladune_COOL-CHIC_Coordinate-based_Low_Complexity_Hierarchical_Image_Codec_ICCV_2023_paper.pdf">论文链接</a><br>
-一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到 RGB 值。然后使用熵编码发送函数的参数。</p>
-</blockquote>
-<blockquote>
-<p>[!NOTE] Coordinates Neural Representation (CNR)<br>
-COIN <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.03123">https://arxiv.org/abs/2103.03123</a></p>
+<p>[!NOTE] Cool-chic<br><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/ICCV2023/papers/Ladune_COOL-CHIC_Coordinate-based_Low_Complexity_Hierarchical_Image_Codec_ICCV_2023_paper.pdf">论文链接</a><br> 一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到 RGB 值。然后使用熵编码发送函数的参数。</p>
+<p>[!NOTE] Coordinates Neural Representation (CNR)<br>COIN <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.03123">https://arxiv.org/abs/2103.03123</a></p>
 </blockquote>
 <p>C3 在 CLIC2020 image benchmark 中以低于 3k MACs/pixel 的开销，达到与 H.266 参考实现 VTM 相当的RD；在 UVG video benchmark 中以低于 5k MACs/pixel 的开销达到与 Video Compression Transformer 相当的RD</p>
 <blockquote>
-<p>[!NOTE] MAC<br>
-Multiply–Accumulate Operations，1MACs 包含一个乘法操作与一个加法操作，大约包含 2FLOPs。开销的度量。</p>
+<p>[!NOTE] MAC<br>Multiply–Accumulate Operations，1MACs 包含一个乘法操作与一个加法操作，大约包含 2FLOPs。开销的度量。</p>
 <ul>
 <li>[ ] 此处 3k、5k MACs/px 是什么概念？参照传统方法对比</li>
 <li>[ ] 为什么用MAC而不是FLOPS</li>
 </ul>
-</blockquote>
-<blockquote>
 <p>[!NOTE] H.266 | VTM</p>
-</blockquote>
+<p>[!NOTE]  Video Compression Transformer<br>VCT <a target="_blank" rel="noopener" href="https://papers.nips.cc/paper_files/paper/2022/hash/54dcf25318f9de5a7a01f0a4125c541e-Abstract-Conference.html">论文链接</a></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2></blockquote>
+<p>图像压缩神经网络多基于自编码器（auto-encoder），decoder为了保证泛化性复杂度会较高，对手机等场景难以适应。<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.03123">COIN</a> 一改思路，用神经网络在要压缩的（单张）图像上过拟合，然后将量化的权重作为图像压缩编码，解码器只针对这一张图片（整个网络只为生成同一张图像），所以复杂度较低。但COIN的RD表现不好。<br>Cool-chic在COIN的基础上，对待压缩图片另外训练一个熵模型，改善了RD；Cool-chic v2 的RD则超过了 BPG/HEVC 编码。但Cool-chic仍不如VTM，且没有应用到视频压缩（视频对decoder开销要求更高）</p>
+<p>C3 对 Cool-chic 进行了一系列改进，首次以较低解码复杂度达到与VTM相近的RD，且将C3扩展到视频压缩，开销少于VCT的%0.1<br><img src="/.io//Pasted_image_20240714203559.png" alt="1"></p>
+<h2 id="关于Cool-chic"><a href="#关于Cool-chic" class="headerlink" title="关于Cool-chic"></a>关于Cool-chic</h2><p>首先介绍了Cool-chic。AE中模型是独立于待压缩图像的，而Cool-chic对每个带压缩图像给出一个模型（权重）。<br>Cool-chic中，一张图像的 latent 表达是一系列“latent grid”，在不同尺度生成；在重建图像时，先将每个 latent grid 都上采样到原图尺寸，之后 synthesis network $ f_θ $ 用堆叠的上采样后的  latent grid 预测每个像素点的RGB，有</p>
+<script type="math/tex; mode=display">
+x_{rec} = f_\theta (Up(z))</script><p>压缩后要传输的内容包括：latent grids、熵模型、综合模型。对于每个latent grid，先进行量化，再用熵模型估计其分布的参数 μ 和 σ，模型考虑网格的邻域。熵模型和综合模型在训练后也量化参数，其参数用预设的分布进行熵编码。<br>（文中用 location and scale parameters 指代 μ 和 σ，<a target="_blank" rel="noopener" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda364.htm">相关</a> ）<br><img src="/.io//Pasted_image_20240714220612.png" alt="2"><br>此外，特别提到了训练中的 “quantization-aware”，通过在训练时加入噪声，模拟经过量化后的latent向量。</p>
+<h2 id="C3-对-Cool-chic-的改进"><a href="#C3-对-Cool-chic-的改进" class="headerlink" title="C3 对 Cool-chic 的改进"></a>C3 对 Cool-chic 的改进</h2><p>改进主要包括两类：quantization-aware（训练时）和模型结构。</p>
+<h3 id="Optimization改进"><a href="#Optimization改进" class="headerlink" title="Optimization改进"></a>Optimization改进</h3><p>Cool-chic中为了使模型适应量化的 latent 和参数，在训练中分两阶段引入了“模拟的量化”<br><img src="/.io//Pasted_image_20240714221500.png" alt="3"><br>C3沿用了两个阶段的设计，主要对 “模拟量化”的方式进行了改进。其余改动较小。</p>
+<h4 id="Soft-rounding-stage-1"><a href="#Soft-rounding-stage-1" class="headerlink" title="Soft-rounding (stage 1)"></a>Soft-rounding (stage 1)</h4><p>在增加噪声前后进行 soft-rounding，$ s_T $ 为取整函数的平滑逼近（在压缩时是用取整函数量化的），有：</p>
+<script type="math/tex; mode=display">
+z' = s_T(s_T(z) + u)</script><p>其中 $ s_T $ 有温度系数T，“For large T , sT approaches the identity while for small T , sT approaches the rounding function”。</p>
 <blockquote>
-<p>[!NOTE]  Video Compression Transformer<br>
-VCT <a target="_blank" rel="noopener" href="https://papers.nips.cc/paper_files/paper/2022/hash/54dcf25318f9de5a7a01f0a4125c541e-Abstract-Conference.html">论文链接</a></p>
-</blockquote>
-<h2 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h2>
-<p>图像压缩神经网络多基于自编码器（auto-encoder），decoder为了保证泛化性复杂度会较高，对手机等场景难以适应。<br>
-<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.03123">COIN</a> 一改思路，用神经网络在要压缩的（单张）图像上过拟合，然后将量化的权重作为图像压缩编码，解码器只针对这一张图片（整个网络只为生成同一张图像），所以复杂度较低。但COIN的RD表现不好。<br>
-Cool-chic在COIN的基础上，对待压缩图片另外训练一个熵模型，改善了RD；Cool-chic v2 的RD则超过了 BPG/HEVC 编码。但Cool-chic仍不如VTM，且没有应用到视频压缩（视频对decoder开销要求更高）</p>
-<p>C3 对 Cool-chic 进行了一系列改进，首次以较低解码复杂度达到与VTM相近的RD，且将C3扩展到视频压缩，开销少于VCT的%0.1<br>
-<img src="/2024/07/14/C3/Pasted_image_20240714203559.png" alt="1"></p>
-<h2 id="关于cool-chic"><a class="markdownIt-Anchor" href="#关于cool-chic"></a> 关于Cool-chic</h2>
-<p>首先介绍了Cool-chic。AE中模型是独立于待压缩图像的，而Cool-chic对每个带压缩图像给出一个模型（权重）。<br>
-Cool-chic中，一张图像的 latent 表达是一系列“latent grid”，在不同尺度生成；在重建图像时，先将每个 latent grid 都上采样到原图尺寸，之后 synthesis network $ f_θ $ 用堆叠的上采样后的  latent grid 预测每个像素点的RGB，有</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mrow><mi>r</mi><mi>e</mi><mi>c</mi></mrow></msub><mo>=</mo><msub><mi>f</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>U</mi><mi>p</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x_{rec} = f_\theta (Up(z))
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
-<p>压缩后要传输的内容包括：latent grids、熵模型、综合模型。对于每个latent grid，先进行量化，再用熵模型估计其分布的参数 μ 和 σ，模型考虑网格的邻域。熵模型和综合模型在训练后也量化参数，其参数用预设的分布进行熵编码。<br>
-（文中用 location and scale parameters 指代 μ 和 σ，<a target="_blank" rel="noopener" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda364.htm">相关</a> ）<br>
-<img src="/2024/07/14/C3/Pasted_image_20240714220612.png" alt="2"><br>
-此外，特别提到了训练中的 “quantization-aware”，通过在训练时加入噪声，模拟经过量化后的latent向量。</p>
-<h2 id="c3-对-cool-chic-的改进"><a class="markdownIt-Anchor" href="#c3-对-cool-chic-的改进"></a> C3 对 Cool-chic 的改进</h2>
-<p>改进主要包括两类：quantization-aware（训练时）和模型结构。</p>
-<h3 id="optimization改进"><a class="markdownIt-Anchor" href="#optimization改进"></a> Optimization改进</h3>
-<p>Cool-chic中为了使模型适应量化的 latent 和参数，在训练中分两阶段引入了“模拟的量化”<br>
-<img src="/2024/07/14/C3/Pasted_image_20240714221500.png" alt="3"><br>
-C3沿用了两个阶段的设计，主要对 “模拟量化”的方式进行了改进。其余改动较小。</p>
-<h4 id="soft-rounding-stage-1"><a class="markdownIt-Anchor" href="#soft-rounding-stage-1"></a> Soft-rounding (stage 1)</h4>
-<p>在增加噪声前后进行 soft-rounding，$ s_T $ 为取整函数的平滑逼近（在压缩时是用取整函数量化的），有：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>z</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><msub><mi>s</mi><mi>T</mi></msub><mo stretchy="false">(</mo><msub><mi>s</mi><mi>T</mi></msub><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo>+</mo><mi>u</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">z&#x27; = s_T(s_T(z) + u) 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">u</span><span class="mclose">)</span></span></span></span></span></p>
-<p>其中 $ s_T $ 有温度系数T，“For large T , sT approaches the identity while for small T , sT approaches the rounding function”。</p>
-<blockquote>
-<p>[!NOTE] 疑问<br>
-文中提到 “the softrounding does not create an information bottleneck as it is an invertible function”，关于 bottleneck ？</p>
+<p>[!NOTE] 疑问<br>文中提到 “the softrounding does not create an information bottleneck as it is an invertible function”，关于 bottleneck ？</p>
 </blockquote>
 <p>较小的 T 使 $ s_T $ 更接近 rounding，但也让 z 的梯度变化更加剧烈。对此作者进行了退火。</p>
 <blockquote>
 <p>[!NOTE] Anneal</p>
-</blockquote>
-<h4 id="kumaraswamy-noise-stage-1"><a class="markdownIt-Anchor" href="#kumaraswamy-noise-stage-1"></a> Kumaraswamy noise (stage 1)</h4>
+<h4 id="Kumaraswamy-noise-stage-1"><a href="#Kumaraswamy-noise-stage-1" class="headerlink" title="Kumaraswamy noise (stage 1)"></a>Kumaraswamy noise (stage 1)</h4></blockquote>
 <p>Cool-chic中对噪声 u 建模为均匀分布， “for sufficiently smooth distributions, the marginal distribution of the quantization error (z − ⌊z⌉) is approximately uniform”，对 u 的建模建立在 “量化误差与输入无关” 的假设上（如何推出？）。可能有更合适的建模。</p>
 <blockquote>
-<p>[!NOTE] Kumaraswamy distribution<br>
-数学理论部分不太懂</p>
+<p>[!NOTE] Kumaraswamy distribution<br>数学理论部分不太懂</p>
 <ul>
 <li>[ ] 紧性</li>
 </ul>
 </blockquote>
-<h4 id="cosine-decay-schedule-stage-1"><a class="markdownIt-Anchor" href="#cosine-decay-schedule-stage-1"></a> Cosine decay schedule (stage 1)</h4>
-<p>作者实验发现用 Adam 优化器 + 余弦学习率效果比较好，只给了结论。</p>
-<h4 id="smaller-quantization-step-stages-1-2"><a class="markdownIt-Anchor" href="#smaller-quantization-step-stages-1-2"></a> Smaller quantization step (stages 1 &amp; 2)</h4>
-<p>将量化步长减小，使模型输入减小。</p>
+<h4 id="Cosine-decay-schedule-stage-1"><a href="#Cosine-decay-schedule-stage-1" class="headerlink" title="Cosine decay schedule (stage 1)"></a>Cosine decay schedule (stage 1)</h4><p>作者实验发现用 Adam 优化器 + 余弦学习率效果比较好，只给了结论。</p>
+<h4 id="Smaller-quantization-step-stages-1-amp-2"><a href="#Smaller-quantization-step-stages-1-amp-2" class="headerlink" title="Smaller quantization step (stages 1 &amp; 2)"></a>Smaller quantization step (stages 1 &amp; 2)</h4><p>将量化步长减小，使模型输入减小。</p>
 <blockquote>
-<p>[!NOTE] 疑问<br>
-为什么输入大会导致 instabilities or suboptimal optimization.</p>
-</blockquote>
-<h4 id="soft-rounding-for-gradient-stage-2"><a class="markdownIt-Anchor" href="#soft-rounding-for-gradient-stage-2"></a> Soft-rounding for gradient (stage 2)</h4>
+<p>[!NOTE] 疑问<br>为什么输入大会导致 instabilities or suboptimal optimization.</p>
+<h4 id="Soft-rounding-for-gradient-stage-2"><a href="#Soft-rounding-for-gradient-stage-2" class="headerlink" title="Soft-rounding for gradient (stage 2)"></a>Soft-rounding for gradient (stage 2)</h4></blockquote>
 <p>在阶段二的 back passing 中，由 Cool-chic v2 的 STE + 缩小系数改为使用 soft-rounding</p>
 <blockquote>
 <p>[!NOTE] straight-through estimator(STE)</p>
-</blockquote>
-<h4 id="adaptive-learning-rate-stage-2"><a class="markdownIt-Anchor" href="#adaptive-learning-rate-stage-2"></a> Adaptive learning rate (stage 2)</h4>
+<h4 id="Adaptive-learning-rate-stage-2"><a href="#Adaptive-learning-rate-stage-2" class="headerlink" title="Adaptive learning rate (stage 2)"></a>Adaptive learning rate (stage 2)</h4></blockquote>
 <p>“adaptively decrease the learning rate further when the RD-loss does not improve for a fixed number of steps”</p>
-<h3 id="模型结构的改进"><a class="markdownIt-Anchor" href="#模型结构的改进"></a> 模型结构的改进</h3>
-<h3 id="扩展到视频压缩"><a class="markdownIt-Anchor" href="#扩展到视频压缩"></a> 扩展到视频压缩</h3>
-<p>将 C3 和 Cool-chic 应用到视频压缩</p>
-<h2 id="之后"><a class="markdownIt-Anchor" href="#之后"></a> 之后</h2>
-<h3 id="相关工作"><a class="markdownIt-Anchor" href="#相关工作"></a> 相关工作</h3>
-<h3 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 实验结果</h3>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<h2 id="读完之后"><a class="markdownIt-Anchor" href="#读完之后"></a> 读完之后</h2>
-<p>读完感觉看 Cool-chic 介绍部分的收获反而比较多。<br>
-有很多概念和基础都不会，之后按疑问和参考文献补充，准备先看</p>
+<h3 id="模型结构的改进"><a href="#模型结构的改进" class="headerlink" title="模型结构的改进"></a>模型结构的改进</h3><h3 id="扩展到视频压缩"><a href="#扩展到视频压缩" class="headerlink" title="扩展到视频压缩"></a>扩展到视频压缩</h3><p>将 C3 和 Cool-chic 应用到视频压缩</p>
+<h2 id="之后"><a href="#之后" class="headerlink" title="之后"></a>之后</h2><h3 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h3><h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h2 id="读完之后"><a href="#读完之后" class="headerlink" title="读完之后"></a>读完之后</h2><p>读完感觉看 Cool-chic 介绍部分的收获反而比较多。<br>有很多概念和基础都不会，之后按疑问和参考文献补充，准备先看</p>
 
         
       </div>

@@ -189,7 +189,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.2k words 
+            5.7k words 
           </div>
         </div>
         
@@ -200,21 +200,13 @@
         
           <div class="truncate-text">
             
-               Abstract
-Deep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替  predictive coding，并提出一种 feature domain context 作为 condition。
+              AbstractDeep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替  predictive coding，并提出一种 feature domain context 作为 condition。
 
 使用高维上下文为 codec 提供更丰富的信息
 condition 可替换（扩展性）
-实验中比 x256 节约 26.0% 的比特率
-
- Intro
-传统方法、多数 DL 方法：将预测帧与（解码后的）当前帧间的残差编码。DL 的引入主要改变了生成预测帧的方式。
-作者指出残差编码只通过人工设计的求差消除帧间冗余，因而并非最优（即其消除冗余的方式非最优）；其信息熵大于等于条件编码：
-H(xt−x~t)≥H(xt∣x~t)H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
-H(xt​−x~t​)≥H(xt​∣x~t​)
-
-从此式可以稍微明白条件编码中 “条件” 的含义。
-猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从 xt...
+实验中比 x256 节约 26.0% 的比特率Intro传统方法、多数 DL 方法：将预测帧与（解码后的）当前帧间的残差编码。DL 的引入主要改变了生成预测帧的方式。作者指出残差编码只通过人工设计的求差消除帧间冗余，因而并非最优（即其消除冗余的方式非最优）；其信息熵大于等于条件编码：
+H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
+从此式可以稍微明白条件编码中 “条件” 的含义。猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从 $x_t = \tilde{x}_t + res$ 变为  $x_t = \delta (\tilde{x}...
             
           </div>
         
@@ -287,26 +279,17 @@ H(xt​−x~t​)≥H(xt​∣x~t​)
         
           <div class="truncate-text">
             
-              希望补充背景知识，所以在新概念/细节上花费精力较多。
- 摘要
-目标：降低深度学习图像压缩的解码复杂度
-现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。
+              希望补充背景知识，所以在新概念/细节上花费精力较多。 
+摘要目标：降低深度学习图像压缩的解码复杂度现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。
 
-[!NOTE] rate-distortion (RD)
-（比特/数据/信息）率失真
-RD 如何评估？ PSRN、SSIM等计算原图与生成图像的差异/相似程度
+[!NOTE] rate-distortion (RD)（比特/数据/信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图与生成图像的差异/相似程度
 
 C3基于Cool-chic编码，在单图像上实现后迁移到视频。
 
-[!NOTE] Cool-chic
-论文链接
-一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到 RGB 值。然后使用熵编码发送函数的参数。
+[!NOTE] Cool-chic论文链接 一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到 RGB 值。然后使用熵编码发送函数的参数。
+[!NOTE] Coordinates Neural Representation (CNR)COIN https://arxiv.org/abs/2103.03123
 
-
-[!NOTE] Coordinates Neural Representation (CNR)
-COIN https://arxiv.org/abs/2103.03123
-
-C3 在 CLIC2020 image benchmark 中以低于 3k MACs/pixel 的开销，达到与 H.266 参考实现 VTM...
+C3 在 CLIC2020 image benchmark 中以低于 3k MACs/pixel 的开销，达到与 H.266 参考实现 VTM 相当的RD；...
             
           </div>
         
