@@ -27,9 +27,9 @@
 <meta property="og:site_name" content="冰箱">
 <meta property="og:description" content="希望补充背景知识，所以在新概念&#x2F;细节上花费精力较多。  摘要目标：降低深度学习图像压缩的解码复杂度现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。  [!NOTE] rate-distortion (RD)（比特&#x2F;数据&#x2F;信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图与生成">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714203559.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714220612.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714221500.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714203559.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714220612.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714221500.png">
 <meta property="article:published_time" content="2024-07-13T16:47:36.925Z">
 <meta property="article:modified_time" content="2024-07-18T04:07:49.784Z">
 <meta property="article:author" content="cicecoo">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="视频压缩">
 <meta property="article:tag" content="论文笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cicecoo.github.io/.io//Pasted_image_20240714203559.png">
+<meta name="twitter:image" content="https://cicecoo.github.io/2024/07/14/C3/Pasted_image_20240714203559.png">
   
     <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
   
@@ -231,12 +231,12 @@
 <p>[!NOTE]  Video Compression Transformer<br>VCT <a target="_blank" rel="noopener" href="https://papers.nips.cc/paper_files/paper/2022/hash/54dcf25318f9de5a7a01f0a4125c541e-Abstract-Conference.html">论文链接</a></p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2></blockquote>
 <p>图像压缩神经网络多基于自编码器（auto-encoder），decoder为了保证泛化性复杂度会较高，对手机等场景难以适应。<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.03123">COIN</a> 一改思路，用神经网络在要压缩的（单张）图像上过拟合，然后将量化的权重作为图像压缩编码，解码器只针对这一张图片（整个网络只为生成同一张图像），所以复杂度较低。但COIN的RD表现不好。<br>Cool-chic在COIN的基础上，对待压缩图片另外训练一个熵模型，改善了RD；Cool-chic v2 的RD则超过了 BPG/HEVC 编码。但Cool-chic仍不如VTM，且没有应用到视频压缩（视频对decoder开销要求更高）</p>
-<p>C3 对 Cool-chic 进行了一系列改进，首次以较低解码复杂度达到与VTM相近的RD，且将C3扩展到视频压缩，开销少于VCT的%0.1<br><img src="/.io//Pasted_image_20240714203559.png" alt="1"></p>
+<p>C3 对 Cool-chic 进行了一系列改进，首次以较低解码复杂度达到与VTM相近的RD，且将C3扩展到视频压缩，开销少于VCT的%0.1<br><img src="/2024/07/14/C3/Pasted_image_20240714203559.png" alt="1"></p>
 <h2 id="关于Cool-chic"><a href="#关于Cool-chic" class="headerlink" title="关于Cool-chic"></a>关于Cool-chic</h2><p>首先介绍了Cool-chic。AE中模型是独立于待压缩图像的，而Cool-chic对每个带压缩图像给出一个模型（权重）。<br>Cool-chic中，一张图像的 latent 表达是一系列“latent grid”，在不同尺度生成；在重建图像时，先将每个 latent grid 都上采样到原图尺寸，之后 synthesis network $ f_θ $ 用堆叠的上采样后的  latent grid 预测每个像素点的RGB，有</p>
 <script type="math/tex; mode=display">
-x_{rec} = f_\theta (Up(z))</script><p>压缩后要传输的内容包括：latent grids、熵模型、综合模型。对于每个latent grid，先进行量化，再用熵模型估计其分布的参数 μ 和 σ，模型考虑网格的邻域。熵模型和综合模型在训练后也量化参数，其参数用预设的分布进行熵编码。<br>（文中用 location and scale parameters 指代 μ 和 σ，<a target="_blank" rel="noopener" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda364.htm">相关</a> ）<br><img src="/.io//Pasted_image_20240714220612.png" alt="2"><br>此外，特别提到了训练中的 “quantization-aware”，通过在训练时加入噪声，模拟经过量化后的latent向量。</p>
+x_{rec} = f_\theta (Up(z))</script><p>压缩后要传输的内容包括：latent grids、熵模型、综合模型。对于每个latent grid，先进行量化，再用熵模型估计其分布的参数 μ 和 σ，模型考虑网格的邻域。熵模型和综合模型在训练后也量化参数，其参数用预设的分布进行熵编码。<br>（文中用 location and scale parameters 指代 μ 和 σ，<a target="_blank" rel="noopener" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda364.htm">相关</a> ）<br><img src="/2024/07/14/C3/Pasted_image_20240714220612.png" alt="2"><br>此外，特别提到了训练中的 “quantization-aware”，通过在训练时加入噪声，模拟经过量化后的latent向量。</p>
 <h2 id="C3-对-Cool-chic-的改进"><a href="#C3-对-Cool-chic-的改进" class="headerlink" title="C3 对 Cool-chic 的改进"></a>C3 对 Cool-chic 的改进</h2><p>改进主要包括两类：quantization-aware（训练时）和模型结构。</p>
-<h3 id="Optimization改进"><a href="#Optimization改进" class="headerlink" title="Optimization改进"></a>Optimization改进</h3><p>Cool-chic中为了使模型适应量化的 latent 和参数，在训练中分两阶段引入了“模拟的量化”<br><img src="/.io//Pasted_image_20240714221500.png" alt="3"><br>C3沿用了两个阶段的设计，主要对 “模拟量化”的方式进行了改进。其余改动较小。</p>
+<h3 id="Optimization改进"><a href="#Optimization改进" class="headerlink" title="Optimization改进"></a>Optimization改进</h3><p>Cool-chic中为了使模型适应量化的 latent 和参数，在训练中分两阶段引入了“模拟的量化”<br><img src="/2024/07/14/C3/Pasted_image_20240714221500.png" alt="3"><br>C3沿用了两个阶段的设计，主要对 “模拟量化”的方式进行了改进。其余改动较小。</p>
 <h4 id="Soft-rounding-stage-1"><a href="#Soft-rounding-stage-1" class="headerlink" title="Soft-rounding (stage 1)"></a>Soft-rounding (stage 1)</h4><p>在增加噪声前后进行 soft-rounding，$ s_T $ 为取整函数的平滑逼近（在压缩时是用取整函数量化的），有：</p>
 <script type="math/tex; mode=display">
 z' = s_T(s_T(z) + u)</script><p>其中 $ s_T $ 有温度系数T，“For large T , sT approaches the identity while for small T , sT approaches the rounding function”。</p>
