@@ -44,7 +44,9 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
   
@@ -116,8 +118,6 @@
   <div class="info-card">
     <div class="avatar">
       
-        <image src=/Luo.png></image>
-      
       <div class="img-dim"></div>
     </div>
     <div class="info">
@@ -137,18 +137,54 @@
   <div class="sticky">
     
       
-
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">自编码器</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9/" rel="tag">视频压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+    </div>
+  </div>
 
 
     
       
   <div class="widget-wrap">
     <div class="widget">
-      <h3 class="widget-title">Tags</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9/" rel="tag">视频压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%8D%9A%E5%AE%A2%E6%B8%B2%E6%9F%93/" title="hexo 的数学公式渲染" >
+            <div class="recent-link-text">
+              hexo 的数学公式渲染
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/Latent/" title="笔记《LATENT VARIABLE MODELS》" >
+            <div class="recent-link-text">
+              笔记《LATENT VARIABLE MODELS》
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/VariationalAutoEncoder/" title="关于 VAEs" >
+            <div class="recent-link-text">
+              关于 VAEs
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/" title="关于 Autoencoders" >
+            <div class="recent-link-text">
+              关于 Autoencoders
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/" title="关于 Activation Regularization" >
+            <div class="recent-link-text">
+              关于 Activation Regularization
+            </div>
+          </a>
+        
+      </ul>
     </div>
   </div>
-
 
     
   </div>
@@ -156,6 +192,618 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-博客渲染" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/%E5%8D%9A%E5%AE%A2%E6%B8%B2%E6%9F%93/">hexo 的数学公式渲染</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:29:05.302Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            301 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+从不能正确识别公式，到公式渲染后重复，配置过程中总有各种问题。
+尝试了许多渲染器后，最终发现
+https://yangliuav.github.io/2018/05/11/hexomath/ 的 hexo-math 加
+hexo-renderer-pandoc 比较顺畅
+关于 “pandoc exited with code null” 问题参考
+https://github.com/theme-next/hexo-theme-next/issues/1454
+解决，在电脑安装
+pandoc（https://github.com/jgm/pandoc/releases/）并重启即可（也适用于
+windows，用 msi 安装比较方便）
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/%E5%8D%9A%E5%AE%A2%E6%B8%B2%E6%9F%93/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-Latent" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/Latent/">笔记《LATENT VARIABLE MODELS》</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:28:58.686Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            200 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              为了解变分推导相关，找到了 Christopher M. Bishop 的《Pattern
+recognition and machine learning》，后来发现用 latent variable
+估计分布也是他提出的？
+来源
+https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-latent-erice-99.pdf
+笔记
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/Latent/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-VariationalAutoEncoder" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/VariationalAutoEncoder/">关于 VAEs</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:27:20.526Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            231 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">自编码器</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+看了一圈，感觉理论方面最缺的可能是这一块。虽然和训练不是直接相关
+https://www.youtube.com/watch?v=qJeaCHQ1k2w&amp;ab_channel=Deepia
+
+
+
+拓展
+
+关于(variational) lower bound
+
+
+此处证明的最后一步？
+https://xyang35.github.io/2017/04/14/variational-lower-bound/
+中对琴生不等式的使用也是带过
+
+logx是凹函数，所以有
+
+另外，推导中的这一句
+
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/VariationalAutoEncoder/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-关于AutoEncoder" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/">关于 Autoencoders</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:26:55.698Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            643 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">自编码器</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              An Introduction to Autoencoders http://arxiv.org/abs/2201.03898An
+Autoencoders http://arxiv.org/abs/2003.05991
+
+图来自 http://arxiv.org/abs/2201.03898
+记号
+\[ h = g(x) \]
+g表示encoder部分，h 表示AE学到的latent feature
+\[ \tilde{x} \]
+x tilde（/ˈtɪl.də/），表示AE重构的输出
+
+f 表示decoder部分
+\[ g(\cdot), f(\cdot)\]
+中的 cdot 表示对于所有观测的平均
+与一般神经网络相比
+bottleneck
+自编码器就该头尾宽中间窄是一种先入为主的想法，想一下就会发现，一般的分类网络网络之类都是收尾窄中间宽
+“bottleneck”是设计出来的
+正则化
+为什么正则化和其他一些tirck增加latent特征的稀疏性？
+为什么令encoder和decoder参数相同（绑定）是有效的？
+
+来自 http:...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-关于ActivationRegularization" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/">关于 Activation Regularization</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:25:56.039Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.2k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">自编码器</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              Activation
+Regularization - serp.ai A
+Gentle Introduction to Activation
+\[\alpha{L}_{2}\left(m\circ{h_{t}}\right)
+\]
+
+Here, \(m\) refers to the dropout
+mask used later in the model, \(\alpha\) is a scaling coefficient, and
+\(h_{t}\) is the output of the RNN at
+timestep \(t\). The \(L_{2}\) norm is used to calculate the
+magnitude of the activations, and the result is scaled by \(\alpha\). This encourages small
+activations, ultimately leading to better performance and generalization...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-ICLR17compression" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/ICLR17compression/">笔记《END-TO-END OPTIMIZED IMAGE COMPRESSION》</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:22:49.202Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            848 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              为了 factorized entropy model 来看
+来源
+论文 https://arxiv.org/abs/1611.01704 复现
+https://github.com/liujiaheng/iclr_17_compression
+笔记
+General nonlinear
+transform coding framework
+理解为
+
+此处对压缩一笔带过，其他文章也是，虽然确实在这里不重要，但压缩具体是什么样的？
+proxy loss function
+针对量化带来的零梯度 为什么会出现零梯度？直觉是否正确 ——
+邻近的值在数值上临近，量化后容易到同一点？
+
+"we use a proxy loss function based on a continuous relaxation of the
+probability model, replacing the quantization step with additive uniform
+noise." 实际做法和DCVC等一样，不过说法很不同
+
+又见 VAE https://e...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/ICLR17compression/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-Ballé18compression" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/10/21/Ball%C3%A918compression/">笔记《Variational image compression with a scale hyperprior》</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T06:22:23.186Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            771 words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              为了 hyper prior entropy model、hierarchical prior 来看
+来源
+论文 https://arxiv.org/abs/1802.01436v2 复现
+https://github.com/Hannah-Neumann/ai-image-compression
+side information
+
+"a concept universal to virtually all modern image codecs, but
+largely unexplored in image compression using artificial neural networks
+(ANNs)."
+
+是指先验信息？ https://www.nxhh.net/qkwenda/3103389.html
+Intro
+本来是因为不了解 DCVC 提到的 prior 和 side information
+来看，但这篇文章的 introduction 解答了我对图像压缩整体流程的很多疑问
+
+甚至解释了一直没搞清楚的 entropy
+mode...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/10/21/Ball%C3%A918compression/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
    
 
 
@@ -170,7 +818,7 @@
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2024/07/18/DCVC/">笔记《Deep Contextual Video Compression》</a>
+        <a class="p-name article-title" href="/2024/10/21/DCVC/">笔记《Deep Contextual Video Compression》</a>
       </h1>
     
   
@@ -178,7 +826,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-07-18T03:17:11.706Z" itemprop="datePublished">2024-07-18</time>
+  <time class="dt-published" datetime="2024-10-21T05:12:52.491Z" itemprop="datePublished">2024-10-21</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -189,7 +837,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            5.7k words 
+            5.5k words 
           </div>
         </div>
         
@@ -200,13 +848,26 @@
         
           <div class="truncate-text">
             
-              AbstractDeep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替  predictive coding，并提出一种 feature domain context 作为 condition。
+              Abstract
+Deep Contextual Video Compression (DCVC)， 提出使用 conditional
+coding 代替 predictive coding，并提出一种 feature domain context 作为
+condition。
 
 使用高维上下文为 codec 提供更丰富的信息
 condition 可替换（扩展性）
-实验中比 x256 节约 26.0% 的比特率Intro传统方法、多数 DL 方法：将预测帧与（解码后的）当前帧间的残差编码。DL 的引入主要改变了生成预测帧的方式。作者指出残差编码只通过人工设计的求差消除帧间冗余，因而并非最优（即其消除冗余的方式非最优）；其信息熵大于等于条件编码：
+实验中比 x256 节约 26.0% 的比特率
+
+Intro
+传统方法、多数 DL 方法：将预测帧与（解码后的）当前帧间的残差编码。DL
+的引入主要改变了生成预测帧的方式。
+作者指出残差编码只通过人工设计的求差消除帧间冗余，因而并非最优（即其消除冗余的方式非最优）；其信息熵大于等于条件编码：
+\[
 H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
-从此式可以稍微明白条件编码中 “条件” 的含义。猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从 $x_t = \tilde{x}_t + res$ 变为  $x_t = \delta (\tilde{x}...
+\]
+
+从此式可以稍微明白条件编码中 “条件” 的含义。
+猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从
+\(x_t = \tilde{x}_t + r...
             
           </div>
         
@@ -218,7 +879,7 @@ H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
      
     <a class="right-panel  non-pic  "
       
-      href="/2024/07/18/DCVC/" 
+      href="/2024/10/21/DCVC/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -249,7 +910,7 @@ H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/2024/07/14/C3/">论文笔记《C3: High-performance and low-complexity neural compression from a single image or video》</a>
+        <a class="p-name article-title" href="/2024/07/14/C3/">笔记《C3: High-performance and low-complexity neural compression from a single image or video》</a>
       </h1>
     
   
@@ -279,17 +940,25 @@ H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
         
           <div class="truncate-text">
             
-              希望补充背景知识，所以在新概念/细节上花费精力较多。 
-摘要目标：降低深度学习图像压缩的解码复杂度现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。
+              希望补充背景知识，所以在新概念/细节上花费精力较多。
+摘要
+目标：降低深度学习图像压缩的解码复杂度
+现有模型大多通过使用复杂结构、在大数据集训练来提高泛化性，解码复杂度高。本文中，C3通过“对每幅图像或视频过拟合一个小模型”，达到较强的RD性能和较低解码复杂度。
 
-[!NOTE] rate-distortion (RD)（比特/数据/信息）率失真 RD 如何评估？ PSRN、SSIM等计算原图与生成图像的差异/相似程度
+[!NOTE] rate-distortion (RD) （比特/数据/信息）率失真 RD 如何评估？
+PSRN、SSIM等计算原图与生成图像的差异/相似程度
 
 C3基于Cool-chic编码，在单图像上实现后迁移到视频。
 
-[!NOTE] Cool-chic论文链接 一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到 RGB 值。然后使用熵编码发送函数的参数。
-[!NOTE] Coordinates Neural Representation (CNR)COIN https://arxiv.org/abs/2103.03123
+[!NOTE] Cool-chic 论文链接
+一种基于坐标的低复杂度分层图像编码器，其中图像被表示为一个可学习的函数，将像素坐标映射到
+RGB 值。然后使用熵编码发送函数的参数。
 
-C3 在 CLIC2020 image benchmark 中以低于 3k MACs/pixel 的开销，达到与 H.266 参考实现 VTM 相当的RD；...
+
+[!NOTE] Coordinates Neural Representation (CNR) COIN
+https://arxiv.org/abs/2103.03123
+
+C3 在 CLIC2020 image benchmark 中以低于 3k MACs/pixel 的开销，达...
             
           </div>
         

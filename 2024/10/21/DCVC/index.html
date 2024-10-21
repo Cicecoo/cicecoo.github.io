@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>笔记《Deep Contextual Video Compression》 | 冰箱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Abstract Deep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替 predictive coding，并提出一种 feature domain context 作为 condition。  使用高维上下文为 codec 提供更丰富的信息 condition 可替换（扩展性） 实验中比 x256">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记《Deep Contextual Video Compression》">
+<meta property="og:url" content="https://cicecoo.github.io/2024/10/21/DCVC/index.html">
+<meta property="og:site_name" content="冰箱">
+<meta property="og:description" content="Abstract Deep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替 predictive coding，并提出一种 feature domain context 作为 condition。  使用高维上下文为 codec 提供更丰富的信息 condition 可替换（扩展性） 实验中比 x256">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cicecoo.github.io/.io//C3_context.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_struct.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_res.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_framework.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_visualize.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_entropy.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_context_fpormula.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_matlab_vis.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_test_data.png">
+<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_compare.png">
+<meta property="article:published_time" content="2024-10-21T05:12:52.491Z">
+<meta property="article:modified_time" content="2024-10-21T06:12:10.049Z">
+<meta property="article:author" content="cicecoo">
+<meta property="article:tag" content="图像压缩">
+<meta property="article:tag" content="视频压缩">
+<meta property="article:tag" content="论文笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cicecoo.github.io/.io//C3_context.png">
+  
+    <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>冰箱 </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Cicecoo </div>
+      <div class="dot"></div>
+      <div class="subtitle"> </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Cicecoo" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8/" rel="tag">自编码器</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9/" rel="tag">视频压缩</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Recent Posts</h3>
+      <ul>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%8D%9A%E5%AE%A2%E6%B8%B2%E6%9F%93/" title="hexo 的数学公式渲染" >
+            <div class="recent-link-text">
+              hexo 的数学公式渲染
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/Latent/" title="笔记《LATENT VARIABLE MODELS》" >
+            <div class="recent-link-text">
+              笔记《LATENT VARIABLE MODELS》
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/VariationalAutoEncoder/" title="关于 VAEs" >
+            <div class="recent-link-text">
+              关于 VAEs
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/" title="关于 Autoencoders" >
+            <div class="recent-link-text">
+              关于 Autoencoders
+            </div>
+          </a>
+        
+          <a class="recent-link" href="/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/" title="关于 Activation Regularization" >
+            <div class="recent-link-text">
+              关于 Activation Regularization
+            </div>
+          </a>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-DCVC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        笔记《Deep Contextual Video Compression》
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-21T05:12:52.491Z" itemprop="datePublished">2024-10-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5.5k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" rel="tag">图像压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9/" rel="tag">视频压缩</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">论文笔记</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="abstract">Abstract</h2>
+<p>Deep Contextual Video Compression (DCVC)， 提出使用 conditional
+coding 代替 predictive coding，并提出一种 feature domain context 作为
+condition。</p>
+<ul>
+<li>使用高维上下文为 codec 提供更丰富的信息</li>
+<li>condition 可替换（扩展性）</li>
+<li>实验中比 x256 节约 26.0% 的比特率</li>
+</ul>
+<h2 id="intro">Intro</h2>
+<p>传统方法、多数 DL 方法：将预测帧与（解码后的）当前帧间的残差编码。DL
+的引入主要改变了生成预测帧的方式。
+作者指出残差编码只通过人工设计的<strong>求差</strong>消除帧间冗余，因而并非最优（即其消除冗余的方式非最优）；其信息熵大于等于条件编码：
+<span class="math display">\[
+H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
+\]</span></p>
+<blockquote>
+<p>从此式可以稍微明白条件编码中 “条件” 的含义。
+猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从
+<span class="math inline">\(x_t = \tilde{x}_t + res\)</span> 变为 <span class="math inline">\(x_t = \delta (\tilde{x}_t | context)\)</span></p>
+</blockquote>
+<p>此外作者指出，残差编码实际为条件编码的简化，带有
+“当前像素仅依赖于预测的像素”
+的强假设，理论上当前像素与已解码的所有帧和当前帧的已解码部分都相关。
+belike：（来自 https://arxiv.org/abs/2312.02753 ）</p>
+<p><img src="/.io//C3_context.png"></p>
+<p>之前由于是人工设计，无法考虑这么大的上下文，但用 DL
+可以。作者联系单图像压缩的自编码器，提出将自编码器引入视频压缩。</p>
+<blockquote>
+<p>自编码器对应了转移函数 $ (x | context) $ ？</p>
+</blockquote>
+<p>作者将 condition
+定义为可学习的上下文特征，并将学到的特征用于编、解码器和熵模型。如下面DCVC
+的结构图所示：</p>
+<p><img src="/.io//DCVC_struct.png"></p>
+<blockquote>
+<p>从图中看到之前的猜测可能不太对，没有显式的 “预测” 步骤（没有 <span class="math inline">\(\tilde{x}_t\)</span> ），而像 <span class="math inline">\(x_t = \delta (x_{t-1} | context)\)</span></p>
+</blockquote>
+<p>如何学习 condition
+？作者提出在特征域使用运动估计和运动补偿（MEMC）指导特征提取。 &gt;
+怎么个“指导”法？</p>
+<p>如前文所述，DCVC 在压缩率方面得到了明显提升。</p>
+<blockquote>
+<p>“For 1080p standard test videos, our DCVC can achieve 26.0% bitrate
+saving over x265 using <em>veryslow</em> preset” 对于 “<em>veryslow</em>
+preset” 如何理解？</p>
+</blockquote>
+<p>作者提到实际上 conditional coding
+的观点之前就有一些工作提出过，但局限于单独的编码部分、解码部分，或需要额外的人工设计进行特征筛选（？）。相比之下，DCVC
+涵盖了编、解码和熵模型，更全面成熟；此外考虑到 condition
+可扩展，实际上是提供了一个框架。</p>
+<p>作者将贡献总结为：</p>
+<ol type="1">
+<li>设计了基于 conditional coding 的视频压缩框架，对 condition
+的定义、使用和学习方式是全新的。且得到了更高的压缩率。</li>
+<li>提出了简单高效的、在编解码和熵模型中利用上下文的方法。特别设计了熵模型，可以利用时空上的相关性达到更高压缩率，或只利用时间相关性来提高速度。</li>
+<li>将 condition 定义为特征空间中的 context。指出 context
+维度越高，对高频内容重建提供信息越多。 &gt; 限定在 “高频”？——
+后文有解释</li>
+<li>框架可扩展，便于改进。</li>
+</ol>
+<h3 id="related-works">Related Works</h3>
+<p>作者提到 MEMC 是 explicit 的，没有用到 latent
+state，因而更容易训练。</p>
+<h3 id="method">Method</h3>
+<h4 id="关于框架">关于框架</h4>
+<p>传统方法的公式描述：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{x}_t = f_{dec} (\lfloor f_{enc} (x_t - \tilde{x}_t) \rceil \space |
+\space \tilde{x}_t ), \\
+where \space \tilde{x}_t = f_{predict}(\hat{x}_{t−1})
+\end{aligned}
+\]</span></p>
+<p>传统方法中，冗余的消除关键是用预测帧和当前帧的差保留非冗余部分。生成方式不变，则相同的当前帧总能构造出相同的预测帧，只要保留每一步的残差，就能在每一步由上一步预测帧得到当前帧，让迭代继续下去：</p>
+<p><img src="/.io//DCVC_res.png"></p>
+<blockquote>
+<p>是这样吗？ 初始化呢？</p>
+</blockquote>
+<p>VCDC的公式描述：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{x}_t = f_{dec} (\lfloor f_{enc} (x_t \space | \space \bar{x}_t)
+\rceil \space | \space \bar{x}_t ), \\
+where \space \bar{x}_t = f_{context}(\hat{x}_{t−1})
+\end{aligned}
+\]</span></p>
+<p>其中<span class="math inline">\(f_{predict}\)</span> 同样可以作为
+<span class="math inline">\(f_{context}\)</span>
+的实现，此时编解码器和熵模型使用三通道的
+condition（即生成的图像张量）。</p>
+<p><img src="/.io//DCVC_framework.png"></p>
+<p>对应于公式描述，DCVC的解码流程：</p>
+<ol type="1">
+<li>从上一帧已解码图像中提取 ？</li>
+<li>将 ？和压缩包输入熵模型 ？</li>
+<li>将 ？和熵解码后的比特流输入解码器</li>
+</ol>
+<blockquote>
+<p>context 是如何生成的？与 MV 是独立生成的吗？ MEMC
+在流程中的什么位置？ 二者如果是分别生成的，如何结合？ 熵模型如何利用
+condition？ dec如何利用condition？</p>
+</blockquote>
+<blockquote>
+<p>如何生成 context ？ 如何用 context 生成 latent codes ？</p>
+</blockquote>
+<p><img src="/.io//DCVC_visualize.png"></p>
+<p>右下角图像为 DCVC
+与基于残差编码的框架的误差减少量可视化，据此作者得出 DCVC
+提高了高频部分重建质量的结论。</p>
+<blockquote>
+<p>看这一段时突然想到：每个通道（特征图）都不一样，在经过的结构相同的前提下为什么会不一样？想到应该是因为卷积核初始化值不一样。但为什么自己上课搭网络时没有初始化过卷积核，却也能训练模型（如果按前面的考虑，若卷积核初始权值都相同，应该只能学到一张特征图？试一试）？应该是pytorch有默认初始化
+https://discuss.pytorch.org/t/how-are-layer-weights-and-biases-initialized-by-default/13073
+https://discuss.pytorch.org/t/what-are-the-default-initialised-matrix-values-of-the-convolution-kernels-in-pytorch/92233/2
+https://discuss.pytorch.org/t/clarity-on-default-initialization-in-pytorch/84696
+但似乎也可以全初始化为0，那么差异是如何引入的</p>
+</blockquote>
+<h4 id="关于熵模型">关于熵模型</h4>
+<p>交叉熵给出了比特率（有效信息所需？）的下界：</p>
+<p><span class="math display">\[
+R(\hat{y}_t) \ge \mathbb{E}_{\hat{y}_t \sim q_{\hat{y}_t }} [-{log}_2
+p_{\hat{y}_t}(\hat{y}_t)] \tag{1}
+\]</span></p>
+<p><span class="math inline">\(R(\hat{y}_t)\)</span> ：压缩后数据 $
+<em>t $ 的比特率。此处“率”应该是像素而非时间上的平均（bpp）？—— 是bpp $
+</em>{<em>t q</em>{_t }} $ ：是关于 $ _t $ 的期望，其中 $<em>t $
+服从分布$ q</em>{<em>t } <span class="math inline">\(。\)</span>
+q</em>{_t }(_t) $ ：$<em>t $ 实际的概率质量函数。未知 $ p</em>{_t}(_t) $
+：$ _t $ 估计的概率质量函数。 $ _t $ ：量化后的 latent codes</p>
+<p>待求的熵模型实际就是$ p_{_t}(<em>t) $ （？），而对于$ </em>{<em>t
+q</em>{_t }} $有：</p>
+<p><span class="math display">\[
+\mathbb{E}_{\hat{y}_t \sim q_{\hat{y}_t}}(f(x)) = \Sigma q(x)f(x)
+\]</span></p>
+<p>所以此处</p>
+<p><span class="math display">\[
+\mathbb{E}_{\hat{y}_t \sim q_{\hat{y}_t }} [-{log}_2
+p_{\hat{y}_t}(\hat{y}_t)] = - \Sigma q_{\hat{y}_t}(\hat{y}_t){log}_2
+p_{\hat{y}_t}(\hat{y}_t)
+\]</span></p>
+<p>即</p>
+<p><span class="math display">\[
+\mathbb{E}_{\hat{y}_t \sim q_{\hat{y}_t }} [-{log}_2
+p_{\hat{y}_t}(\hat{y}_t)] = H(q,p)
+\]</span></p>
+<blockquote>
+<p>所以(1)式实际是 <span class="math inline">\(R(\hat{y}_t) \ge
+H(q,p)\)</span> ？为什么用期望来表示？</p>
+</blockquote>
+<p>若p、q足够接近，即p估计得足够好，则有：</p>
+<p><span class="math display">\[
+H(q,p) \approx H(q)
+\]</span></p>
+<p>作者指出，, 通过 arithmetic coding
+得到的编码比特率接近交叉熵，即可以做到：</p>
+<p><span class="math display">\[
+R(\hat{y}_t) \approx H(q,p)
+\]</span></p>
+<p>那么只要最小化 $ H(q,p) $
+就可以最小化比特率。p、q越接近交叉熵越小？所以目标是让估计的 $ _t $
+分布p更接近实际分布q。</p>
+<blockquote>
+<p>p、q越接近交叉熵越小？</p>
+</blockquote>
+<p><img src="/.io//DCVC_entropy.png"></p>
+<blockquote>
+<p>关于三种 prior 是什么，以及网络结构是怎么实现的（比如prior
+fusion是怎么做的），以及为什么这样设计网络结构，现在都还不理解</p>
+</blockquote>
+<p>目前的理解：熵模型部分假设 $ _t $ 服从拉普拉斯分布，并根据 $ y_t $ 和
+$ {x}_t $ 估计分布的参数 $$ 和 $$ 。</p>
+<p><img src="/.io//DCVC_context_fpormula.png"></p>
+<p><span class="math display">\[
+p_{\hat{y}_t}(\hat{y}_t | \bar{x}_t, \hat{z}_t) =
+\prod_{i}(\mathcal{L}(\mu_{t,i},\sigma_{t,i}^2)*\mathcal{U}(-\frac{1}{2},\frac{1}{2}))(\hat{y}_{t,i})
+\]</span></p>
+<p>$ (<em>{t,i},</em>{t,i}^2) <span class="math inline">\(：假设的拉普拉斯分布\)</span> (-,)) <span class="math inline">\(：均匀分布\)</span> * <span class="math inline">\(：卷积\)</span> <em>{t,i} $：latent code 的第 $ i
+$ 维分量 $ </em>{i} $：假设 $<em>{t} $
+的分量间独立？连乘求得分量的联合分布，即为总的概率分布（求积之后如何分离？或者说如何利用整体的概率分布）
+$ (</em>{t,i},_{t,i}^2)*(-,) $
+能否理解为截取特定频率段，对应地，学习得到 $ _{t,i} $
+的每一维只反映一定频率范围的特征？</p>
+<p><img src="/.io//DCVC_matlab_vis.png"></p>
+<p>尝试用matlab作图来直观感受，均匀分布似乎确实将主要图像限制在了一定频率范围内。</p>
+<h4 id="关于context">关于context</h4>
+<p>学习context就是提取与重建当前帧有关的信息，如上一帧的图像特征。由于视频内容多、对象运动复杂的特点，仅仅前后帧对应像素位置关联，无法将前后帧中有相对运动的对应特征关联起来。所以作者也借鉴了MEMC的思路，但做出改进，即：MEMC直接提取RGB图像的信息（输入是原图），而作者选择对已提取的特征图应用MEMC（输入是特征图）。</p>
+<p><span class="math display">\[
+f_{context}(\hat{x}_{t-1}) =
+f_{cr}(warp(f_{fe}(\hat{x}_{t-1}),\hat{m}_t))
+\]</span></p>
+<p>$ f_{fe}() $ ：特征提取网络，“将当前帧由 pixel domain 转到 feature
+domain”，应该就是卷积得到 feature volume？ $ <em>t
+$：由光流估计网络得到的运动向量，参考帧 $ </em>{t-1} $ 与当前帧 $ _{t} $
+之间的。输出后经过编码解码，解码后的 MV $ warp() $：”The decoded $ _t $
+guides the network where to extract the context through warping
+operation“，可能看代码才能知道到底做了什么 作者提到 warp
+会损失空间关联信息，所以增加了 <span class="math inline">\(f_{cr}(\cdot)\)</span> 优化 context，得到最终的 $
+{x}_t $</p>
+<h4 id="关于训练">关于训练</h4>
+<p>”The target of video compression is using least bitrate to get the
+best reconstruction quality.“，相应的损失函数设计为：</p>
+<p><span class="math display">\[
+L =  \lambda \cdot D + R
+\]</span></p>
+<p>$ D $ （distortion）衡量重建质量， $ R <span class="math inline">\(（bitrate）衡量压缩率，\)</span> $ 用于二者的
+tradeoff。$ D $ 可以用 MSE、MS-SSIM 等指标；作者选择用 latent code
+的预测值 $ _t $ 分布和真实值 $ {y}_t $ 分布之间的交叉熵作为 $ R $ 。</p>
+<h3 id="results">Results</h3>
+<p><img src="/.io//DCVC_test_data.png"></p>
+<blockquote>
+<p>此处 anchor 与目标检测所指不同，x256 (veryslow) 是 x256
+编码器的一种模式？ 此处 anchor x265 是否对应前文的 arithmetic
+coding？</p>
+</blockquote>
+<p>训练时，”randomly crop videos into 256x256 patches.“</p>
+<p>对照实验中，对于传统方法 x264 和 x265，作者提到 ”use the constant
+quantization parameter setting rather than constant rate factor setting
+to avoid the influence of rate control.“</p>
+<p><img src="/.io//DCVC_compare.png"></p>
+<p>之前没找到相关说明，从此图确定文中比特率指的是相对于像素（BPP)而非时间</p>
+<blockquote>
+<p>关于多次出现的 cheng2020-anchor
+https://interdigitalinc.github.io/CompressAI/zoo.html#cheng2020-anchor
+https://github.com/ZhengxueCheng/Learned-Image-Compression-with-GMM-and-Attention
+是因为该方法已经成为常用参考标准？</p>
+</blockquote>
+<h3 id="discussion">Discussion</h3>
+<p>作者指出三点局限：</p>
+<ol type="1">
+<li>无监督学习
+context，通道（特征图）间有很多重复。（之前我对此还有疑问）</li>
+<li>生成 context 时只用了一帧作为参考帧（结构设计）</li>
+<li>没有考虑重建时间的稳定性（损失函数设计）</li>
+</ol>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2024/10/21/Ball%C3%A918compression/"
+      title="笔记《Variational image compression with a scale hyperprior》"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        笔记《Variational image compression with a scale hyperprior》
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/07/14/C3/"
+      title="笔记《C3: High-performance and low-complexity neural compression from a single image or video》"
+     >
+
+    <p class="title-text">
+      
+        笔记《C3: High-performance and low-complexity neural compression from a single image or video》
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Cicecoo<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
