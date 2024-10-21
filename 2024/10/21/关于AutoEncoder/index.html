@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="冰箱">
 <meta property="og:description" content="An Introduction to Autoencoders http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2201.03898An Autoencoders http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2003.05991  图来自 http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2201.03898 记号 \[ h &#x3D; g(x) \] g表示encoder部分，h 表示AE学到的latent">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903145504.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903145947.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240904160014.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913132904.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903214448.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903214605.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903214854.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903145504.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903145947.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240904160014.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240913132904.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903214448.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903214605.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903214854.png">
 <meta property="article:published_time" content="2024-10-21T06:26:55.698Z">
 <meta property="article:modified_time" content="2024-10-21T07:00:24.909Z">
 <meta property="article:author" content="cicecoo">
 <meta property="article:tag" content="自编码器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240903145504.png">
+<meta name="twitter:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EAutoEncoder/Pasted%20image%2020240903145504.png">
   
     <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
   
@@ -250,14 +250,14 @@
         
           <p>An Introduction to Autoencoders http://arxiv.org/abs/2201.03898An
 Autoencoders http://arxiv.org/abs/2003.05991</p>
-<p><img src="/.io//Pasted%20image%2020240903145504.png"></p>
+<p><img src="Pasted%20image%2020240903145504.png" /></p>
 <p>图来自 http://arxiv.org/abs/2201.03898</p>
 <h2 id="记号">记号</h2>
 <p><span class="math display">\[ h = g(x) \]</span></p>
 <p>g表示encoder部分，h 表示AE学到的latent feature</p>
 <p><span class="math display">\[ \tilde{x} \]</span></p>
 <p>x tilde（/ˈtɪl.də/），表示AE重构的输出</p>
-<p><img src="/.io//Pasted%20image%2020240903145947.png"></p>
+<p><img src="Pasted%20image%2020240903145947.png" /></p>
 <p>f 表示decoder部分</p>
 <p><span class="math display">\[ g(\cdot), f(\cdot)\]</span></p>
 <p>中的 cdot 表示对于所有观测的平均</p>
@@ -268,18 +268,18 @@ Autoencoders http://arxiv.org/abs/2003.05991</p>
 <h3 id="正则化">正则化</h3>
 <p>为什么正则化和其他一些tirck增加latent特征的稀疏性？
 为什么令encoder和decoder参数相同（绑定）是有效的？</p>
-<p><img src="/.io//Pasted%20image%2020240904160014.png"></p>
+<p><img src="Pasted%20image%2020240904160014.png" /></p>
 <p>来自 http://arxiv.org/abs/2003.05991 bottleneck
 也可以视作一种正则化</p>
-<p><img src="/.io//Pasted%20image%2020240913132904.png"></p>
+<p><img src="Pasted%20image%2020240913132904.png" /></p>
 <p>对激活函数值正则化？</p>
 <h3 id="损失函数相关">损失函数相关</h3>
 <p>为什么</p>
-<p><img src="/.io//Pasted%20image%2020240903214448.png"></p>
+<p><img src="Pasted%20image%2020240903214448.png" /></p>
 <h3 id="ae-与-pca">AE 与 PCA</h3>
-<p><img src="/.io//Pasted%20image%2020240903214605.png"></p>
+<p><img src="Pasted%20image%2020240903214605.png" /></p>
 <p>当满足</p>
-<p><img src="/.io//Pasted%20image%2020240903214854.png"></p>
+<p><img src="Pasted%20image%2020240903214854.png" /></p>
 <p>时，AE与PCA等价 http://www.cse.iitm.ac.in/~miteshk/CS7015_2018.html
 http://www.cse.iitm.ac.in/~miteshk/CS7015/Slides/Teaching/pdf/Lecture7.pdf</p>
 

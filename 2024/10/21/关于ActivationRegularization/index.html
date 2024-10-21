@@ -27,17 +27,16 @@
 <meta property="og:site_name" content="冰箱">
 <meta property="og:description" content="Activation Regularization - serp.ai A Gentle Introduction to Activation \[\alpha{L}_{2}\left(m\circ{h_{t}}\right) \]  Here, \(m\) refers to the dropout mask used later in the model, \(\alpha\)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913180203.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913181246.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913182138.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913182223.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913184753.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/Pasted%20image%2020240913181246.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/Pasted%20image%2020240913182138.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/Pasted%20image%2020240913182223.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/Pasted%20image%2020240913184753.png">
 <meta property="article:published_time" content="2024-10-21T06:25:56.039Z">
 <meta property="article:modified_time" content="2024-10-21T07:00:13.693Z">
 <meta property="article:author" content="cicecoo">
 <meta property="article:tag" content="自编码器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cicecoo.github.io/.io//Pasted%20image%2020240913180203.png">
+<meta name="twitter:image" content="https://cicecoo.github.io/2024/10/21/%E5%85%B3%E4%BA%8EActivationRegularization/Pasted%20image%2020240913181246.png">
   
     <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
   
@@ -247,20 +246,25 @@
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p><a target="_blank" rel="noopener" href="https://serp.ai/activation-regularization/">Activation
-Regularization - serp.ai</a> <a target="_blank" rel="noopener" href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A
+Regularization - serp.ai</a> <a
+target="_blank" rel="noopener" href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A
 Gentle Introduction to Activation</a></p>
 <p><span class="math display">\[\alpha{L}_{2}\left(m\circ{h_{t}}\right)
 \]</span></p>
 <blockquote>
 <p>Here, <span class="math inline">\(m\)</span> refers to the dropout
-mask used later in the model, <span class="math inline">\(\alpha\)</span> is a scaling coefficient, and
+mask used later in the model, <span
+class="math inline">\(\alpha\)</span> is a scaling coefficient, and
 <span class="math inline">\(h_{t}\)</span> is the output of the RNN at
-timestep <span class="math inline">\(t\)</span>. The <span class="math inline">\(L_{2}\)</span> norm is used to calculate the
-magnitude of the activations, and the result is scaled by <span class="math inline">\(\alpha\)</span>. This encourages small
+timestep <span class="math inline">\(t\)</span>. The <span
+class="math inline">\(L_{2}\)</span> norm is used to calculate the
+magnitude of the activations, and the result is scaled by <span
+class="math inline">\(\alpha\)</span>. This encourages small
 activations, ultimately leading to better performance and generalization
 in the model.</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A
+<p><a
+target="_blank" rel="noopener" href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A
 Gentle Introduction to Activation</a> 中将Activation与value in
 feature画上等号，起初不理解，直到看到下文的：</p>
 <blockquote>
@@ -270,19 +274,20 @@ model at that point in the network.</p>
 </blockquote>
 <p>之前的理解有局限：对于激活函数之后的下一层、单独看一个激活函数值来说，确实只是一个输入值；但如果考虑整个层输出的激活函数值整体，并且参照当前层的话，实际就是当前层的特征图。从这个角度看，Activation
 Regularization是限制特征图里值的大小</p>
-<p>activation regularization 的别称 <img src="/.io//Pasted%20image%2020240913180203.png"></p>
+<p>activation regularization 的别称 <img
+src="Pasted%20image%2020240913180203.png" /></p>
 <p>activation regularization、activity regularization、representation
 regularization sparse feature learning</p>
 <p>为什么</p>
-<p><img src="/.io//Pasted%20image%2020240913181246.png"></p>
+<p><img src="Pasted%20image%2020240913181246.png" /></p>
 <p>https://stats.stackexchange.com/questions/45643/why-l1-norm-for-sparse-models
 从数值上</p>
-<p><img src="/.io//Pasted%20image%2020240913182138.png"></p>
+<p><img src="Pasted%20image%2020240913182138.png" /></p>
 <p>从导数</p>
-<p><img src="/.io//Pasted%20image%2020240913182223.png"></p>
+<p><img src="Pasted%20image%2020240913182223.png" /></p>
 <p>因为latent code也是activation，所以AE更倾向使用Activity
 Regularization？</p>
-<p><img src="/.io//Pasted%20image%2020240913184753.png"></p>
+<p><img src="Pasted%20image%2020240913184753.png" /></p>
 <p>用AR的优势是？</p>
 <p>压缩时，对于DCT来说稀疏矩阵（0项）有利于提高压缩率，
 如果用传统方法编码latent code，加上AR（增加activation，亦即latent

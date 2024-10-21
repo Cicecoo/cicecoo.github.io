@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="冰箱">
 <meta property="og:description" content="Abstract Deep Contextual Video Compression (DCVC)， 提出使用 conditional coding 代替 predictive coding，并提出一种 feature domain context 作为 condition。  使用高维上下文为 codec 提供更丰富的信息 condition 可替换（扩展性） 实验中比 x256">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cicecoo.github.io/.io//C3_context.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_struct.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_res.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_framework.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_visualize.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_entropy.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_context_fpormula.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_matlab_vis.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_test_data.png">
-<meta property="og:image" content="https://cicecoo.github.io/.io//DCVC_compare.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/C3_context.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_struct.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_res.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_framework.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_visualize.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_entropy.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_context_fpormula.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_matlab_vis.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_test_data.png">
+<meta property="og:image" content="https://cicecoo.github.io/2024/10/21/DCVC/DCVC_compare.png">
 <meta property="article:published_time" content="2024-10-21T05:12:52.491Z">
 <meta property="article:modified_time" content="2024-10-21T06:12:10.049Z">
 <meta property="article:author" content="cicecoo">
 <meta property="article:tag" content="图像压缩">
-<meta property="article:tag" content="视频压缩">
 <meta property="article:tag" content="论文笔记">
+<meta property="article:tag" content="视频压缩">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cicecoo.github.io/.io//C3_context.png">
+<meta name="twitter:image" content="https://cicecoo.github.io/2024/10/21/DCVC/C3_context.png">
   
     <link rel="alternate" href="/atom.xml" title="冰箱" type="application/atom+xml">
   
@@ -272,13 +272,14 @@ H(x_t - \tilde{x}_t) \ge H(x_t | \tilde{x}_t)
 <blockquote>
 <p>从此式可以稍微明白条件编码中 “条件” 的含义。
 猜测：传统方法中用残差表示了帧间关系，此处则将上下文特征作为条件，用转移概率表示帧间关系，从
-<span class="math inline">\(x_t = \tilde{x}_t + res\)</span> 变为 <span class="math inline">\(x_t = \delta (\tilde{x}_t | context)\)</span></p>
+<span class="math inline">\(x_t = \tilde{x}_t + res\)</span> 变为 <span
+class="math inline">\(x_t = \delta (\tilde{x}_t | context)\)</span></p>
 </blockquote>
 <p>此外作者指出，残差编码实际为条件编码的简化，带有
 “当前像素仅依赖于预测的像素”
 的强假设，理论上当前像素与已解码的所有帧和当前帧的已解码部分都相关。
 belike：（来自 https://arxiv.org/abs/2312.02753 ）</p>
-<p><img src="/.io//C3_context.png"></p>
+<p><img src="C3_context.png" /></p>
 <p>之前由于是人工设计，无法考虑这么大的上下文，但用 DL
 可以。作者联系单图像压缩的自编码器，提出将自编码器引入视频压缩。</p>
 <blockquote>
@@ -287,9 +288,11 @@ belike：（来自 https://arxiv.org/abs/2312.02753 ）</p>
 <p>作者将 condition
 定义为可学习的上下文特征，并将学到的特征用于编、解码器和熵模型。如下面DCVC
 的结构图所示：</p>
-<p><img src="/.io//DCVC_struct.png"></p>
+<p><img src="DCVC_struct.png" /></p>
 <blockquote>
-<p>从图中看到之前的猜测可能不太对，没有显式的 “预测” 步骤（没有 <span class="math inline">\(\tilde{x}_t\)</span> ），而像 <span class="math inline">\(x_t = \delta (x_{t-1} | context)\)</span></p>
+<p>从图中看到之前的猜测可能不太对，没有显式的 “预测” 步骤（没有 <span
+class="math inline">\(\tilde{x}_t\)</span> ），而像 <span
+class="math inline">\(x_t = \delta (x_{t-1} | context)\)</span></p>
 </blockquote>
 <p>如何学习 condition
 ？作者提出在特征域使用运动估计和运动补偿（MEMC）指导特征提取。 &gt;
@@ -328,7 +331,7 @@ where \space \tilde{x}_t = f_{predict}(\hat{x}_{t−1})
 \end{aligned}
 \]</span></p>
 <p>传统方法中，冗余的消除关键是用预测帧和当前帧的差保留非冗余部分。生成方式不变，则相同的当前帧总能构造出相同的预测帧，只要保留每一步的残差，就能在每一步由上一步预测帧得到当前帧，让迭代继续下去：</p>
-<p><img src="/.io//DCVC_res.png"></p>
+<p><img src="DCVC_res.png" /></p>
 <blockquote>
 <p>是这样吗？ 初始化呢？</p>
 </blockquote>
@@ -344,7 +347,7 @@ where \space \bar{x}_t = f_{context}(\hat{x}_{t−1})
 <span class="math inline">\(f_{context}\)</span>
 的实现，此时编解码器和熵模型使用三通道的
 condition（即生成的图像张量）。</p>
-<p><img src="/.io//DCVC_framework.png"></p>
+<p><img src="DCVC_framework.png" /></p>
 <p>对应于公式描述，DCVC的解码流程：</p>
 <ol type="1">
 <li>从上一帧已解码图像中提取 ？</li>
@@ -359,7 +362,7 @@ condition？ dec如何利用condition？</p>
 <blockquote>
 <p>如何生成 context ？ 如何用 context 生成 latent codes ？</p>
 </blockquote>
-<p><img src="/.io//DCVC_visualize.png"></p>
+<p><img src="DCVC_visualize.png" /></p>
 <p>右下角图像为 DCVC
 与基于残差编码的框架的误差减少量可视化，据此作者得出 DCVC
 提高了高频部分重建质量的结论。</p>
@@ -417,25 +420,28 @@ R(\hat{y}_t) \approx H(q,p)
 <blockquote>
 <p>p、q越接近交叉熵越小？</p>
 </blockquote>
-<p><img src="/.io//DCVC_entropy.png"></p>
+<p><img src="DCVC_entropy.png" /></p>
 <blockquote>
 <p>关于三种 prior 是什么，以及网络结构是怎么实现的（比如prior
 fusion是怎么做的），以及为什么这样设计网络结构，现在都还不理解</p>
 </blockquote>
 <p>目前的理解：熵模型部分假设 $ _t $ 服从拉普拉斯分布，并根据 $ y_t $ 和
 $ {x}_t $ 估计分布的参数 $$ 和 $$ 。</p>
-<p><img src="/.io//DCVC_context_fpormula.png"></p>
+<p><img src="DCVC_context_fpormula.png" /></p>
 <p><span class="math display">\[
 p_{\hat{y}_t}(\hat{y}_t | \bar{x}_t, \hat{z}_t) =
 \prod_{i}(\mathcal{L}(\mu_{t,i},\sigma_{t,i}^2)*\mathcal{U}(-\frac{1}{2},\frac{1}{2}))(\hat{y}_{t,i})
 \]</span></p>
-<p>$ (<em>{t,i},</em>{t,i}^2) <span class="math inline">\(：假设的拉普拉斯分布\)</span> (-,)) <span class="math inline">\(：均匀分布\)</span> * <span class="math inline">\(：卷积\)</span> <em>{t,i} $：latent code 的第 $ i
+<p>$ (<em>{t,i},</em>{t,i}^2) <span
+class="math inline">\(：假设的拉普拉斯分布\)</span> (-,)) <span
+class="math inline">\(：均匀分布\)</span> * <span
+class="math inline">\(：卷积\)</span> <em>{t,i} $：latent code 的第 $ i
 $ 维分量 $ </em>{i} $：假设 $<em>{t} $
 的分量间独立？连乘求得分量的联合分布，即为总的概率分布（求积之后如何分离？或者说如何利用整体的概率分布）
 $ (</em>{t,i},_{t,i}^2)*(-,) $
 能否理解为截取特定频率段，对应地，学习得到 $ _{t,i} $
 的每一维只反映一定频率范围的特征？</p>
-<p><img src="/.io//DCVC_matlab_vis.png"></p>
+<p><img src="DCVC_matlab_vis.png" /></p>
 <p>尝试用matlab作图来直观感受，均匀分布似乎确实将主要图像限制在了一定频率范围内。</p>
 <h4 id="关于context">关于context</h4>
 <p>学习context就是提取与重建当前帧有关的信息，如上一帧的图像特征。由于视频内容多、对象运动复杂的特点，仅仅前后帧对应像素位置关联，无法将前后帧中有相对运动的对应特征关联起来。所以作者也借鉴了MEMC的思路，但做出改进，即：MEMC直接提取RGB图像的信息（输入是原图），而作者选择对已提取的特征图应用MEMC（输入是特征图）。</p>
@@ -449,7 +455,8 @@ $：由光流估计网络得到的运动向量，参考帧 $ </em>{t-1} $ 与当
 之间的。输出后经过编码解码，解码后的 MV $ warp() $：”The decoded $ _t $
 guides the network where to extract the context through warping
 operation“，可能看代码才能知道到底做了什么 作者提到 warp
-会损失空间关联信息，所以增加了 <span class="math inline">\(f_{cr}(\cdot)\)</span> 优化 context，得到最终的 $
+会损失空间关联信息，所以增加了 <span
+class="math inline">\(f_{cr}(\cdot)\)</span> 优化 context，得到最终的 $
 {x}_t $</p>
 <h4 id="关于训练">关于训练</h4>
 <p>”The target of video compression is using least bitrate to get the
@@ -457,11 +464,12 @@ best reconstruction quality.“，相应的损失函数设计为：</p>
 <p><span class="math display">\[
 L =  \lambda \cdot D + R
 \]</span></p>
-<p>$ D $ （distortion）衡量重建质量， $ R <span class="math inline">\(（bitrate）衡量压缩率，\)</span> $ 用于二者的
+<p>$ D $ （distortion）衡量重建质量， $ R <span
+class="math inline">\(（bitrate）衡量压缩率，\)</span> $ 用于二者的
 tradeoff。$ D $ 可以用 MSE、MS-SSIM 等指标；作者选择用 latent code
 的预测值 $ _t $ 分布和真实值 $ {y}_t $ 分布之间的交叉熵作为 $ R $ 。</p>
 <h3 id="results">Results</h3>
-<p><img src="/.io//DCVC_test_data.png"></p>
+<p><img src="DCVC_test_data.png" /></p>
 <blockquote>
 <p>此处 anchor 与目标检测所指不同，x256 (veryslow) 是 x256
 编码器的一种模式？ 此处 anchor x265 是否对应前文的 arithmetic
@@ -471,7 +479,7 @@ coding？</p>
 <p>对照实验中，对于传统方法 x264 和 x265，作者提到 ”use the constant
 quantization parameter setting rather than constant rate factor setting
 to avoid the influence of rate control.“</p>
-<p><img src="/.io//DCVC_compare.png"></p>
+<p><img src="DCVC_compare.png" /></p>
 <p>之前没找到相关说明，从此图确定文中比特率指的是相对于像素（BPP)而非时间</p>
 <blockquote>
 <p>关于多次出现的 cheng2020-anchor
