@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>笔记《Learned Image Compression with Discretized Gaussian Mixture Likelihoods and Attention Modules》(Cheng2020) · 冰箱</title>
+  <meta property="article:published_time" content="2024-11-08T08:02:51.000Z">
+  <meta property="article:modified_time" content="2024-11-08T08:02:51.000Z">
+  <script src="../../../../static/reading.js"></script>
+  <link rel="stylesheet" href="../../../../static/katex.min.css">
+  <link rel="stylesheet" href="../../../../static/blog.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <div class="sheet sheet-with-outline">
+    <header class="masthead">
+      <a class="masthead-name" data-blog-link href="../../../../index.html">冰箱</a>
+      <nav class="masthead-nav" aria-label="站点导航"><a data-blog-link href="../../../../index.html#archive">文章归档</a><details class="reading-settings">
+    <summary>阅读设置</summary>
+    <div class="settings-panel">
+      <label>外观<select data-setting="theme">
+        <option value="system">跟随系统</option><option value="light">浅色</option><option value="dark">深色</option>
+      </select></label>
+      <label>字体<select data-setting="font">
+        <option value="mixed" selected>Noto 黑体＋Georgia</option>
+        <option value="cambria">微软雅黑＋Cambria</option>
+        <option value="serif">中英文衬线</option><option value="sans">中英文无衬线</option>
+      </select></label>
+      <label>字号<select data-setting="size">
+        <option value="16">16 px</option><option selected value="18">18 px</option><option value="20">20 px</option>
+        <option value="22">22 px</option><option value="24">24 px</option>
+      </select></label>
+    </div>
+  </details></nav>
+    </header>
+    <main id="content">
+    <article>
+      <header class="article-head">
+        <h1>笔记《Learned Image Compression with Discretized Gaussian Mixture Likelihoods and Attention Modules》(Cheng2020)</h1>
+        <div class="article-times"><span>发布于 <time datetime="2024-11-08T08:02:51.000Z" title="2024-11-08 16:02（上海时间）">2024-11-08 16:02</time></span></div>
+      </header>
+      <nav class="article-outline" aria-label="本文目录">
+    <details><summary>本文目录</summary><ul><li><a href="#abstract">Abstract</a></li><li><a href="#intro">Intro</a></li><li><a href="#related-work">Related Work</a></li><li><a href="#proposed-method">Proposed Method</a></li></ul></details>
+  </nav>
+      <div class="prose"><p>在视频压缩中也作为 I 帧压缩模型经常出现。</p>
+<h2 id="abstract">Abstract</h2>
+<p>本文的目标直接就是深度学习与传统算法的 rate-distortion performance gap（失真以 PSNR 为标准）。主要对熵模型进行了改进，<span class="zh-punct">“</span>使用 discretized Gaussian Mixture Likelihoods 参数化 latent code<span class="zh-punct">”</span>；此外引入注意力模块提高模型表现。</p>
+<h2 id="intro">Intro</h2>
+<p>传统图像压缩算法 “Typically they rely on hand-crafted creativity to present module-based encoder/decoder (codec) block diagrams.”？，其变换矩阵、帧内预测、量化、算术编码器等都是确定的。 “In this paper, our main contribution is to present a more accurate and flexible entropy model by leveraging discretized Gaussian mixture likelihoods.”</p>
+<h2 id="related-work">Related Work</h2>
+<h2 id="proposed-method">Proposed Method</h2>
+<p>熵模型部分，受“Joint Autoregressive and Hierarchical Priors for Learned Image Compression”启发用混合高斯取代固定的单个高斯，从而提高模型的表达能力</p>
+</div>
+      <footer class="article-foot"><a data-blog-link href="../../../../index.html#archive">返回文章归档</a></footer>
+    </article></main>
+  </div>
+</body>
+</html>

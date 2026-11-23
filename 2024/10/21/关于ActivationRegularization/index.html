@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>关于 Activation Regularization · 冰箱</title>
+  <meta property="article:published_time" content="2024-10-21T06:25:56.039Z">
+  <meta property="article:modified_time" content="2024-10-21T07:00:13.693Z">
+  <script src="../../../../static/reading.js"></script>
+  <link rel="stylesheet" href="../../../../static/katex.min.css">
+  <link rel="stylesheet" href="../../../../static/blog.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <div class="sheet">
+    <header class="masthead">
+      <a class="masthead-name" data-blog-link href="../../../../index.html">冰箱</a>
+      <nav class="masthead-nav" aria-label="站点导航"><a data-blog-link href="../../../../index.html#archive">文章归档</a><details class="reading-settings">
+    <summary>阅读设置</summary>
+    <div class="settings-panel">
+      <label>外观<select data-setting="theme">
+        <option value="system">跟随系统</option><option value="light">浅色</option><option value="dark">深色</option>
+      </select></label>
+      <label>字体<select data-setting="font">
+        <option value="mixed" selected>Noto 黑体＋Georgia</option>
+        <option value="cambria">微软雅黑＋Cambria</option>
+        <option value="serif">中英文衬线</option><option value="sans">中英文无衬线</option>
+      </select></label>
+      <label>字号<select data-setting="size">
+        <option value="16">16 px</option><option selected value="18">18 px</option><option value="20">20 px</option>
+        <option value="22">22 px</option><option value="24">24 px</option>
+      </select></label>
+    </div>
+  </details></nav>
+    </header>
+    <main id="content">
+    <article>
+      <header class="article-head">
+        <h1>关于 Activation Regularization</h1>
+        <div class="article-times"><span>发布于 <time datetime="2024-10-21T06:25:56.039Z" title="2024-10-21 14:25（上海时间）">2024-10-21 14:25</time></span> <span>更新于 <time datetime="2024-10-21T07:00:13.693Z" title="2024-10-21 15:00（上海时间）">15:00</time></span></div>
+      </header>
+      
+      <div class="prose"><p><a href="https://serp.ai/activation-regularization/">Activation Regularization - serp.ai</a> <a href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A Gentle Introduction to Activation</a></p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>α</mi><msub><mi>L</mi><mn>2</mn></msub><mrow><mo fence="true">(</mo><mi>m</mi><mo>∘</mo><msub><mi>h</mi><mi>t</mi></msub><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha{L}_{2}\left(m\circ{h_{t}}\right) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord"><span class="mord mathnormal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span>
+<blockquote>
+<p>Here, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span><span class="math-space"> </span>refers to the dropout mask used later in the model, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span><span class="math-space"> </span>is a scaling coefficient, and<span class="math-space"> </span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="math-space"> </span>is the output of the RNN at timestep<span class="math-space"> </span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span>. The<span class="math-space"> </span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">L_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="math-space"> </span>norm is used to calculate the magnitude of the activations, and the result is scaled by<span class="math-space"> </span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>. This encourages small activations, ultimately leading to better performance and generalization in the model.</p>
+</blockquote>
+<p><a href="https://machinelearningmastery.com/activation-regularization-for-reducing-generalization-error-in-deep-learning-neural-networks/">A Gentle Introduction to Activation</a> 中将 Activation 与 value in feature 画上等号，起初不理解，直到看到下文的：</p>
+<blockquote>
+<p>These internal representations are tangible things. The output of a hidden layer within the network represent the learned features by the model at that point in the network.</p>
+</blockquote>
+<p>之前的理解有局限：对于激活函数之后的下一层、单独看一个激活函数值来说，确实只是一个输入值；但如果考虑整个层输出的激活函数值整体，并且参照当前层的话，实际就是当前层的特征图。从这个角度看，Activation Regularization 是限制特征图里值的大小</p>
+<p>activation regularization 的别称 <img src="assets/Pasted%20image%2020240913180203.png" alt=""></p>
+<p>activation regularization、activity regularization、representation regularization sparse feature learning</p>
+<p>为什么</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240913181246.png" alt=""></p>
+<p><a href="https://stats.stackexchange.com/questions/45643/why-l1-norm-for-sparse-models">https://stats.stackexchange.com/questions/45643/why-l1-norm-for-sparse-models</a> 从数值上</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240913182138.png" alt=""></p>
+<p>从导数</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240913182223.png" alt=""></p>
+<p>因为 latent code 也是 activation，所以 AE 更倾向使用 Activity Regularization？</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240913184753.png" alt=""></p>
+<p>用 AR 的优势是？</p>
+<p>压缩时，对于 DCT 来说稀疏矩阵（0 项）有利于提高压缩率，如果用传统方法编码 latent code，加上 AR（增加 activation，亦即 latent code 的稀疏性），可以理解但 autoencoder 不只是用于压缩，使用 AR 的理由是？DCVC 的损失函数没有用正则项，为什么</p>
+</div>
+      <footer class="article-foot"><a data-blog-link href="../../../../index.html#archive">返回文章归档</a></footer>
+    </article></main>
+  </div>
+</body>
+</html>

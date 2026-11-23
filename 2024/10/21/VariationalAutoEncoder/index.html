@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>关于 VAEs · 冰箱</title>
+  <meta property="article:published_time" content="2024-10-21T06:27:20.526Z">
+  <meta property="article:modified_time" content="2024-10-21T07:00:03.327Z">
+  <script src="../../../../static/reading.js"></script>
+  <link rel="stylesheet" href="../../../../static/katex.min.css">
+  <link rel="stylesheet" href="../../../../static/blog.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <div class="sheet">
+    <header class="masthead">
+      <a class="masthead-name" data-blog-link href="../../../../index.html">冰箱</a>
+      <nav class="masthead-nav" aria-label="站点导航"><a data-blog-link href="../../../../index.html#archive">文章归档</a><details class="reading-settings">
+    <summary>阅读设置</summary>
+    <div class="settings-panel">
+      <label>外观<select data-setting="theme">
+        <option value="system">跟随系统</option><option value="light">浅色</option><option value="dark">深色</option>
+      </select></label>
+      <label>字体<select data-setting="font">
+        <option value="mixed" selected>Noto 黑体＋Georgia</option>
+        <option value="cambria">微软雅黑＋Cambria</option>
+        <option value="serif">中英文衬线</option><option value="sans">中英文无衬线</option>
+      </select></label>
+      <label>字号<select data-setting="size">
+        <option value="16">16 px</option><option selected value="18">18 px</option><option value="20">20 px</option>
+        <option value="22">22 px</option><option value="24">24 px</option>
+      </select></label>
+    </div>
+  </details></nav>
+    </header>
+    <main id="content">
+    <article>
+      <header class="article-head">
+        <h1>关于 VAEs</h1>
+        <div class="article-times"><span>发布于 <time datetime="2024-10-21T06:27:20.526Z" title="2024-10-21 14:27（上海时间）">2024-10-21 14:27</time></span> <span>更新于 <time datetime="2024-10-21T07:00:03.327Z" title="2024-10-21 15:00（上海时间）">15:00</time></span></div>
+      </header>
+      
+      <div class="prose"><p class="illustration"><img src="assets/Pasted%20image%2020240915173305.png" alt=""></p>
+<p>看了一圈，感觉理论方面最缺的可能是这一块。虽然和训练不是直接相关</p>
+<p><a href="https://www.youtube.com/watch?v=qJeaCHQ1k2w&amp;ab_channel=Deepia">https://www.youtube.com/watch?v=qJeaCHQ1k2w&amp;ab_channel=Deepia</a></p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918175940.png" alt=""></p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918175845.png" alt=""></p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918162901.png" alt=""></p>
+<p>拓展</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918163113.png" alt=""></p>
+<h2 id="关于-variational-lower-bound">关于(variational) lower bound</h2>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918173741.png" alt=""></p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918173807.png" alt=""></p>
+<p>此处证明的最后一步？</p>
+<p><a href="https://xyang35.github.io/2017/04/14/variational-lower-bound/">https://xyang35.github.io/2017/04/14/variational-lower-bound/</a> 中对琴生不等式的使用也是带过</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918175323.png" alt=""></p>
+<p><strong>logx 是凹函数</strong>，所以有</p>
+<p class="illustration"><img src="assets/e85ee9d45869c70dd3ef1866836fa78e.png" alt=""></p>
+<p>另外，推导中的这一句</p>
+<p class="illustration"><img src="assets/Pasted%20image%2020240918181553.png" alt=""></p>
+</div>
+      <footer class="article-foot"><a data-blog-link href="../../../../index.html#archive">返回文章归档</a></footer>
+    </article></main>
+  </div>
+</body>
+</html>
